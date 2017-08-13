@@ -1,0 +1,3 @@
+class mindlab_deploy {
+
+}
