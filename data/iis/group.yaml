@@ -1,1 +1,8 @@
-environment:- HessTraining
+|-
+  environment:
+  - customer: Hess
+    project: 1
+    environmentName: Training
+    environmentType: 2
+    serverIP: 3
+    serverName: 4
