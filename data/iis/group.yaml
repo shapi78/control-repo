@@ -1,3 +1,2 @@
-"{\n  \"environment\": [\n    {\n      \"customer\": \"Hess\", \n      \"environmentName\"\
-  : \"Training\", \n      \"project\": \"\", \n      \"serverName\": \"\", \n    \
-  \  \"environmentType\": \"\", \n      \"serverIP\": \"\"\n    }\n  ]\n}"
+"environment:\n- customer: Hess\n  project: \n  environmentName: Training\n  environmentType:\
+  \ \n  serverIP: \n  serverName: "
