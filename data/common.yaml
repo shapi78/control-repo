@@ -1,0 +1,53 @@
+---
+
+artifacts:
+    GuidePortal:
+      artifact: "GuidePortal"
+      version: 2.4
+    GuideRepository: 
+      artifact: "GuideRepository"
+      version: 2.4
+    GuideServices: 
+      artifact: "GuideServices"
+      version: 2.4
+appPools:
+  GuidePortal:
+    appPool: "GuidePortal"
+    username: "%{hiera('appPool::default::username')}"
+    userpass: "%{hiera('appPool::default::userpass')}"
+  GuideRepository:
+    appPool: "GuideRepository"
+    username: "%{hiera('appPool::default::username')}"
+    userpass: "%{hiera('appPool::default::userpass')}"
+  GuideServices:
+    appPool: "GuideServices"
+    username: "%{hiera('appPool::default::username')}"
+    userpass: "%{hiera('appPool::default::userpass')}"
+appPool::default::username: "MOIDEOEX\\guideuser"
+appPool::default::userpass: "Guide4User"
+automation::downloadnexus::group: "hess"
+automation::downloadnexus::version: 2.4
+automation::downloadnexus::repo: "portal"
+automation::downloadnexus::nexusHost: "nexus3"
+automation::WorkDirectory: "C:/Drop"
+automation::UnZipFolder: "%{hiera('automation::WorkDirectory')}/Zip"
+automation::ScriptFolder: "C:/Scripts"
+iis_deploy::params::webfolder: "C:/Sites"
+iis_deploy::params::serviceAddress: 'server2012.mobideo.local'
+iis_deploy::params::guideRepositoryAddress: 'server2012.mobideo.local'
+iis_deploy::params::endpointAddress: 'server2012.mobideo.local'
+iis_deploy::params::db_backup: "0"
+
+sites:
+  mobideosite:
+    siteAddress: "mobideosite.mpcmobideo.com"
+    version: 2.4
+    ipAddress: "192.168.0.111"
+  mobideocheck:
+    siteAddress: "mobideocheck.mpcmobideo.com"
+    version: 2.4
+    ipAddress: "192.168.0.9"
+  amirtest:
+    siteAddress: "amirtest.mpcmobideo.com"
+    version: 2.4
+    ipAddress: "192.168.12.91"
