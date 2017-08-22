@@ -1,8 +1,8 @@
 |-
   environment:
-  - customer: Hess
-    project: 1
-    environmentName: Training
-    environmentType: 2
-    serverIP: 3
-    serverName: 4
+  - customer: HESS
+    project: training
+    environmentName: localhost
+    environmentType: QA
+    serverIP: http://127.0.0.1
+    serverName: localhost
