@@ -14,7 +14,7 @@ node default {
 	if ( $dbBackup != "1" ) {
 		include class {'mssql': }
 		# class {'mssql::backup':}
-		mssql::dwnl_restore { "flyway":
+		mssql::dwnl_restore { "shapi":
 				group           => "LocalWeb",
                                 artifact        => "test",
                                 version         => "201708200408",
