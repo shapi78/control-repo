@@ -78,6 +78,7 @@ define mssql::dwnl_restore (
 		if $mssql::sqlserver != true {
 			fail "backup requires SQL"
 		}
+		include automation::nexus
 
 		$artifact_file = "$automation::workdir/${artifact}-${version}.zip"
 		$backup_file = "${automation::unzip_dir}/${artifact}_${version}.bak"
@@ -85,14 +86,12 @@ define mssql::dwnl_restore (
                         		group           => $group,
                         		version         => $version,
                         		repo            => $repo,
-                }->
-
-		if $_downloaded {
+                }
+		## realize(Automation::Nexus::Download::Dwnld["${artifact}"])
 		zip_utils::extract {"extracting $artifact":
 				full_filename   => $artifact_file,
 				dst_folder 	=> "${automation::unzip_dir}"
 			}
-		}
 
 
 		mssql::restore { "${database}":
