@@ -44,16 +44,24 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 define mssql::restore (
-	$server="localhost",
 	$database = $title,
-	$filename
+	$filename,
+	$version
 	){
+	$res_facts = $facts["restore_${database}"]
+	if $res_facts and
+		$res_facts["version"] == $version && $res_facts["database"] == $database {
+		notify {"${database} already restored": }
 
-	exec { 'Running Restore DB script':
-		command => "& C:/Scripts/restore_sql.ps1 -backupFile $filename -restoreDB $database",
-		provider => powershell,
-		logoutput => true,
-		require => File["C:/Scripts/restore_sql.ps1"]
+	} else {
+		notify {"restoring DB ${database}": }
+		exec { "Restore DB ${database}":
+			command => "& C:/Scripts/restore_sql.ps1 -backupFile $filename -restoreDB $database",
+			provider => powershell,
+			logoutput => true,
+			require => File["C:/Scripts/restore_sql.ps1"]
+		}
+		static_custom_facts::fact {"restore_${database}": value => {version => "${version}", filename => "${filename}", database => "${database}"}}
 	}
 		
 }
@@ -67,7 +75,6 @@ define mssql::dwnl_restore (
 		if $mssql::sqlserver != true {
 			fail "backup requires SQL"
 		}
-		notify {"Downloading ${artifact}":}->
 
 		automation::nexus::download{"${artifact}":
                         		group           => $group,
@@ -77,14 +84,6 @@ define mssql::dwnl_restore (
 		$artifact_file = "$automation::workdir/${artifact}-${version}.zip"
 
 
-		file{$artifact_file:
-			ensure => file,
-		}->
-
-		exec{"Check if $artifact_file exist":
-			provider => powershell,
-			require => File[$artifact_file],
-		}
 
 		zip_utils::extract {"extracting $artifact":
 				full_filename   => $artifact_file,
@@ -103,6 +102,7 @@ define mssql::dwnl_restore (
 
 		mssql::restore { "${database}":
 					filename => $backup_file,
+					version => $version,
 				}
  		
 			

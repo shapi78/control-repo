@@ -13,6 +13,7 @@ define automation::nexus::download (
 		if $fact["repo"] == "$repo" and  $fact["version"] == "$version"{
 			notify{"artifact ${artifact} alreadey exist":}
 		}else{
+			notify {"Downloading ${artifact}":}->
 			exec { "${artifact}_file" :
 				command => "& C:/Scripts/DownloadNexus.ps1 -repo $repo -artifact $artifact -group $group -version $version -DownloadFolder $dwnld_folder",
 				provider => powershell,
