@@ -1,0 +1,19 @@
+---
+# Hiera 5 Global configuration file
+
+version: 5
+
+defaults:
+  datadir: data
+  data_hash: yaml_data
+hierarchy: 
+  - name: "Per-Node data"
+    path: "nodes/%{trusted.certname}.yaml"
+  - name: "Group data"
+    path: "groups/%{facts.group}"
+  - name: "Common data"
+    path: "common.yaml"
+  - name: "YAML hierarchy level"
+    paths: 
+      - "os/%{facts.os.family}.yaml"
+      - "common.yaml"
