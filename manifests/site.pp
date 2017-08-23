@@ -1,7 +1,5 @@
 node default {
-	 class { '::jerakia': }
  
- 	   jerakia::policy { 'default': }
 	class {'automation': }
 	$version = $automation::params::app_ver
 	$server_dest = $automation::params::server_dest
