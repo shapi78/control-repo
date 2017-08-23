@@ -12,6 +12,7 @@ define automation::nexus::download (
 	if $facts{
 		if $fact["repo"] == "$repo" and  $fact["version"] == "$version"{
 			notify{"artifact ${artifact} alreadey exist":}
+			$_downloaded=false
 		}else{
 			notify {"Downloading ${artifact}":}->
 			exec { "${artifact}_file" :
@@ -20,6 +21,7 @@ define automation::nexus::download (
 				logoutput => true,
 				require => File["C:/Scripts/DownloadNexus.ps1"],
 			}
+			$_downloaded=true
 		static_custom_facts::fact {"artifact_${artifact}": value => {repo => "${repo}", folder => "${automation::workdir}", name => "${artifact}", group => "${group}", version => "${version}"}}
 		}
 	}

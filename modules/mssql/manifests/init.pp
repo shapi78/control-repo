@@ -48,6 +48,9 @@ define mssql::restore (
 	$filename,
 	$version
 	){
+	file{"${filename}":
+                        ensure => file,
+              }
 	$res_facts = $facts["restore_${database}"]
 	if $res_facts and
 		$res_facts["version"] == $version and $res_facts["database"] == $database {
@@ -59,7 +62,7 @@ define mssql::restore (
 			command => "& C:/Scripts/restore_sql.ps1 -backupFile $filename -restoreDB $database",
 			provider => powershell,
 			logoutput => true,
-			require => File["C:/Scripts/restore_sql.ps1"]
+			require => [File["C:/Scripts/restore_sql.ps1"], File["${filename}"]]
 		}
 		static_custom_facts::fact {"restore_${database}": value => {version => "${version}", filename => "${filename}", database => "${database}"}}
 	}
@@ -76,28 +79,20 @@ define mssql::dwnl_restore (
 			fail "backup requires SQL"
 		}
 
+		$artifact_file = "$automation::workdir/${artifact}-${version}.zip"
+		$backup_file = "${automation::unzip_dir}/${artifact}_${version}.bak"
 		automation::nexus::download{"${artifact}":
                         		group           => $group,
                         		version         => $version,
                         		repo            => $repo,
-                }
-		$artifact_file = "$automation::workdir/${artifact}-${version}.zip"
+                }->
 
-
-
+		if $_downloaded {
 		zip_utils::extract {"extracting $artifact":
 				full_filename   => $artifact_file,
 				dst_folder 	=> "${automation::unzip_dir}"
 			}
-
-		$backup_file = "${automation::unzip_dir}/${artifact}_${version}.bak"
-		file{$backup_file:
-                        ensure => file,
-                }->
-		exec{"Check if $backup_file  exist":
-                        provider => powershell,
-                        require => File[$backup_file],
-                }
+		}
 
 
 		mssql::restore { "${database}":
