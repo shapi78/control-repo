@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="fileRepository" type="Mobideo.Guide.Services.Common.Configuration.FileRepositoryConfigurationSection, Mobideo.Guide.Services.Common" />
+    <section name="StrategyCalculationSection" type="Mobideo.Guide.Services.Contracts.Tasks.Statistics.StrategyCalculationSection, Mobideo.Guide.Services.Contracts" />
+    <section name="mobideo.billing" type="Mobideo.Billing.Services.Configuration.BillingEngineConfigurationSection, Mobideo.Billing.Services" />
+    <section name="TotalIssueReportByRoleSection" type="Mobideo.Guide.Services.Contracts.Tasks.Statistics.TotalIssueReportByRoleSection, Mobideo.Guide.Services.Contracts" />
+  </configSections>
+  <mobideo.billing>
+    <engines>
+    </engines>
+  </mobideo.billing>
+  <fileRepository>
+    <repositories>
+    </repositories>
+  </fileRepository>
+  <StrategyCalculationSection>
+    <StrategyCalculationCollection>
+      <add key="IssueReportProgressCalculation" value="false" />
+      <add key="DateEndTimeProgressCalculation" value="true" />
+      <add key="DateStartTimeProgressCalculation" value="true" />
+      <add key="ProgressCalculation.FailBoundryMinutes" value="5" />
+      <add key="ProgressCalculation.RiskBoundryMinutes" value="-720" />
+    </StrategyCalculationCollection>
+  </StrategyCalculationSection>
+  <TotalIssueReportByRoleSection>
+    <NoneIssueReportRoles />
+    <GrowthIssueReportRoles />
+    <DelayIssueReportRoles />
+    <RecommendationIssueReportRoles />
+  </TotalIssueReportByRoleSection>
+  <appSettings>
+    <add key="ValidateEarlierDates" value="false" />
+    <add key="IssueReportProgressCalculation.Enable" value="false" />
+    <add key="CalculateTaskTotalWithGrowth" value="false" />
+    <add key="unassignedTasksForClientToDays" value="10" />
+    <add key="StatisticsNumOfMonthsAfter" value="6" />
+    <add key="UnassignedTasksForClientFromDays" value="1" />
+    <add key="DownloadUnassignedTasksByStartTime" value="true" />
+    <add key="IssueReportNotification.Enable" value="true" />
+    <add key="ServiceAddress" value="https://<%=$serviceAddress%>"/>
+    <add key="GuideRepositoryAddress" value="https://<%=$guideRepositoryAddress%>"/>
+    <add key="ServicesRootPath" value="GuideServices" />
+    <add key="TrimSitesByEmployees" value="false" />
+    <add key="ImportExport.DelimitedFieldMetadataPath" value="~\Metadata" />
+    <add key="IncludeCompletedTasks" value="false" />
+    <add key="DropLocation" value="Uploaded" />
+    <add key="PublishFolderPath" value="Publish" />
+    <add key="TasksRelatedFiles" value="TasksRelatedFiles" />
+    <add key="Retrying" value="3" />
+    <add key="BatchImportMaxRecordsPerPart" value="5" />
+    <add key="ClientSettingsProvider.ServiceUri" />
+    <add key="FilterCompletedTasksDuration" value="0" />
+    <add key="EntityPagSize" value="500" />
+    <add key="TaskPagSize" value="50" />
+    <add key="SecurityTrimming.Enable" value="false" />
+    <add key="SiteTrimmingType" value="DisplayTeamSites" />
+    <add key="ClientApi.TasksRangeFrom" value="ThreeMonthBefore" />
+    <add key="ClientApi.TasksRangeTo" value="ThreeMonthAfter" />
+    <add key="WorkWithPipeLine" value="false" />
+    <add key="SystemAuditLog.Enable" value="true" />
+    <add key="IncludeDeclinedTasks" value="false" />
+    <add key="AllowToUpdateOnGoingTask" value="false" />
+    <add key="DisplayHiddenFieldsInDetails" value="true" />
+    <add key="ConfigVersion" value="1.01" />
+    <add key="WorkFlowStrategy.UpdateDeclinedTasksProgressToFailed" value="true" />
+    <add key="PasswordComplexity" value="false" />
+    <add key="PasswordExpireDays" value="90" />
+    <add key="UseConfigurationServer" value="false" />
+    <add key="CancelPreconditionWhenDeletingTask" value="false" />
+    <add key="CancelPreconditionWhenDecliningTask" value="false" />
+  </appSettings>
+  <connectionStrings>
+    <add name="Guide" connectionString="Data Source=<%=$sqlServer%>;Initial Catalog=<%=$catalogName%>;Integrated Security=True" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  <system.web>
+    <httpRuntime maxRequestLength="2000000" requestPathInvalidCharacters="" />
+    <customErrors mode="Off" />
+    <membership defaultProvider="Guide">
+      <providers>
+        <add name="Guide" type="Mobideo.Guide.Administration.Data.GuideSqlMembershipProvider, Mobideo.Guide.Administration" connectionStringName="Guide" enablePasswordRetrieval="true" />
+      </providers>
+    </membership>
+    <roleManager enabled="true" defaultProvider="Guide">
+      <providers>
+        <add name="Guide" connectionStringName="Guide" type="Mobideo.Guide.Administration.Data.GuideSqlRolesProvider, Mobideo.Guide.Administration" />
+      </providers>
+    </roleManager>
+    <compilation targetFramework="4.5" />
+    <httpHandlers>
+      <add path="map.ashx" validate="false" verb="GET" type="Mobideo.Guide.Services.IIS6Host.Mapping.MapHttpHandler, Mobideo.Guide.Services.IIS6Host" />
+    </httpHandlers>
+    <pages controlRenderingCompatibilityVersion="3.5" clientIDMode="AutoID" />
+  </system.web>
+  <!-- UnComment to Activate SVC log-->
+  <!--<system.diagnostics>
+    <sources>
+      <source name="System.ServiceModel" switchValue="Information, ActivityTracing" propagateActivity="true">
+        <listeners>
+          <add name="xml" type="System.Diagnostics.XmlWriterTraceListener" initializeData="logs\GuideServices.svclog"/>
+        </listeners>
+      </source>
+    </sources>
+  </system.diagnostics>-->
+  <system.serviceModel>
+    <bindings>
+      <webHttpBinding>
+        <binding transferMode="StreamedResponse" maxReceivedMessageSize="2147483647">
+          <security mode="Transport" />
+        </binding>
+        <binding name="basicStreaming" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647">
+          <security mode="Transport" />
+        </binding>
+      </webHttpBinding>
+      <basicHttpBinding>
+        <binding name="SysaidApiServicePortBinding">
+          <security mode="Transport" />
+        </binding>
+        <binding maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647">
+          <readerQuotas maxDepth="32" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+          <security mode="Transport" />
+        </binding>
+      </basicHttpBinding>
+      <wsHttpBinding>
+        <binding maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647">
+          <readerQuotas maxDepth="32" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+          <security mode="TransportWithMessageCredential">
+            <message clientCredentialType="UserName" />
+          </security>
+        </binding>
+        <binding name="ImportBinding" closeTimeout="00:05:00" openTimeout="00:05:00" receiveTimeout="00:05:00" sendTimeout="00:05:00" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647">
+          <readerQuotas maxDepth="32" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+          <security mode="TransportWithMessageCredential">
+            <message clientCredentialType="UserName" />
+          </security>
+        </binding>
+      </wsHttpBinding>
+    </bindings>
+    <extensions>
+      <behaviorExtensions>
+        <add name="BasicHttpCustomAuthorization" type="Mobideo.Guide.Services.Common.BasicHttpAuthorizationEndpointBehavior, Mobideo.Guide.Services.Common" />
+        <add name="ServicesInitialization" type="Mobideo.Guide.Services.IIS6Host.GuideServicesInitialization, Mobideo.Guide.Services.IIS6Host" />
+        <add name="TraceInputBehavior" type="Mobideo.Guide.ServicesApi.Configuration.TraceInputOutputBehaviorExtensionElement, Mobideo.Guide.ServicesApi" />
+      </behaviorExtensions>
+    </extensions>
+    <protocolMapping>
+      <add scheme="http" binding="wsHttpBinding" />
+      <add scheme="https" binding="wsHttpBinding" />
+    </protocolMapping>
+    <behaviors>
+      <endpointBehaviors>
+        <behavior>
+          <ServicesInitialization />
+          <dataContractSerializer maxItemsInObjectGraph="10000000" />
+        </behavior>
+        <behavior name="unsecure">
+          <ServicesInitialization />
+          <dataContractSerializer maxItemsInObjectGraph="10000000" />
+        </behavior>
+        <behavior name="UnsecureJson">
+          <webHttp />
+        </behavior>
+        <behavior name="Json">
+          <webHttp />
+          <BasicHttpCustomAuthorization />
+        </behavior>
+        <behavior name="traceInput">
+          <ServicesInitialization />
+          <TraceInputBehavior />
+          <dataContractSerializer maxItemsInObjectGraph="10000000" />
+        </behavior>
+        <behavior name="basicHttpCustomAuthorization">
+          <ServicesInitialization />
+          <BasicHttpCustomAuthorization />
+          <dataContractSerializer maxItemsInObjectGraph="10000000" />
+        </behavior>
+        <behavior name="HttpStreamingBehavior">
+          <ServicesInitialization />
+          <dataContractSerializer maxItemsInObjectGraph="10000000" />
+          <webHttp />
+        </behavior>
+      </endpointBehaviors>
+      <serviceBehaviors>
+        <behavior name="DebugEnabledBehavior">
+          <serviceDebug includeExceptionDetailInFaults="true" />
+        </behavior>
+        <behavior>
+          <serviceThrottling maxConcurrentCalls="1000" maxConcurrentSessions="1000" />
+          <dataContractSerializer maxItemsInObjectGraph="10000" />
+          <serviceMetadata httpsGetEnabled="true" />
+          <serviceCredentials>
+            <serviceCertificate findValue="MobideoGuideServicesCert" storeLocation="LocalMachine" storeName="My" x509FindType="FindBySubjectName" />
+            <userNameAuthentication userNamePasswordValidationMode="MembershipProvider" />
+          </serviceCredentials>
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <client>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/Api/Guide.svc" binding="wsHttpBinding" bindingConfiguration="ImportBinding" contract="Mobideo.Guide.ServicesApi.IGuideServicesApi" name="Mobideo.Guide.ServicesApi.IGuideServicesApi">
+        <identity>
+          <dns value="MobideoGuideServicesCert" />
+        </identity>
+      </endpoint>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/Query/Query.svc" binding="wsHttpBinding" bindingConfiguration="ImportBinding" contract="Mobideo.Guide.ServicesApi.IGuideServicesQueryApi" name="Mobideo.Guide.ServicesApi.IGuideServicesQueryApi">
+        <identity>
+          <dns value="MobideoGuideServicesCert" />
+        </identity>
+      </endpoint>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/Api/Import.svc" binding="wsHttpBinding" bindingConfiguration="ImportBinding" contract="Mobideo.Guide.ServicesApi.ImportExport.IImportManager" name="Mobideo.Guide.ServicesApi.ImportExport.IImportManager">
+        <identity>
+          <dns value="MobideoGuideServicesCert" />
+        </identity>
+      </endpoint>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/Statistics/TaskStatisticsManager.svc" binding="wsHttpBinding" contract="Mobideo.Guide.Services.Contracts.Tasks.Statistics.ITaskStatisticsManager" name="Mobideo.Guide.Services.Contracts.Tasks.Statistics.ITaskStatisticsManager">
+        <identity>
+          <dns value="MobideoGuideServicesCert" />
+        </identity>
+      </endpoint>
+    </client>
+  </system.serviceModel>
+  <system.net>
+    <mailSettings>
+      <smtp>
+        <network host="exchange" defaultCredentials="false" />
+      </smtp>
+    </mailSettings>
+  </system.net>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+  </system.webServer>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="PushSharp.Core" publicKeyToken="cf74b75eab2c0170" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-2.2.1.0" newVersion="2.2.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <add key="ShowTitleOnGridWidget" value="false" />
+    <add key="Customer" />
+    <add key="Project" />
+    <add key="Version" />
+    <add key="Deployment" />
+    <add key="RepositoryConfigurationEnabled" value="false" />
+    <add key="AutoPaging" value="false" />
+    <add key="TaskHomePage" value="true" />
+    <add key="DisplaySorOrder" value="true" />
+    <add key="DisplaySidebarOnHomePage" value="true" />
+    <add key="ShowDetailsAsStream" value="true" />
+    <add key="MaximumItemsInAutoComplete" value="500" />
+    <add key="FileServiceConfiguration.PeriodEscapeChar" value="|" />
+    <add key="ServiceAddress" value="https://<%=$serviceAddress%>"/>
+    <add key="ServicesRootPath" value="GuideServices" />
+    <add key="GuideRepositoryAddress" value=https://<%=$guideRepositoryAddress%>"/>
+    <add key="WebClientPath" value="GuideServices/WebClient/index.html" />
+    <add key="MetadataFileName" value="guide" />
+    <add key="Import.MaxRecordsCount" value="100" />
+    <add key="ExcelImportFileSize" value="30" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <add key="Repository" value="Repository" />
+    <add key="Versions" value="Versions" />
+    <add key="WorkWithPipeLine" value="false" />
+    <add key="AirportView.EnableClientTaskEdit" value="true" />
+    <add key="CanEditComplitedTask" value="false" />
+    <add key="TaskDetailsAsGrid" value="true" />
+    <add key="ShowTaskMetadataInTaskDetails" value="false" />
+    <add key="DisplayHiddenFieldsInDetails" value="true" />
+    <add key="LicenseKey" value="/44gcgm/AQvaEueFumx5kfH68gM6gI+n989FYtHE/bFGYeWFFf1W/si0EblNrp7CGVJHpHS0QAAGatGdYzycVYoZK0ALp5YXwmmrpYR3I5GeSQkIOW0khzR4xvTKFcNyi2QSeTCRsvkYPPWmzBBV7J8WTKKCIfleCn0U2e9Jctg=" />
+    <add key="LoadPerformanceStatistics" value="false" />
+    <add key="EnableErrorReporting" value="false" />
+    <add key="PasswordComplexity" value="false" />
+    <add key="DisplayFilterByEquipmentParent" value="false" />
+    <add key="DisplayFilterBySiteParent" value="false" />
+    <add key="webpages:Version" value="2.0.0.0" />
+    <add key="PreserveLoginUrl" value="true" />
+  </appSettings>
+  <system.net>
+    <connectionManagement>
+      <add address="*" maxconnection="100" />
+    </connectionManagement>
+  </system.net>
+  <!--<system.diagnostics>
+  <sources>
+    <source name="System.ServiceModel" switchValue="Information, ActivityTracing" propagateActivity="true">
+    <listeners>
+      <add name="xml" type="System.Diagnostics.XmlWriterTraceListener" initializeData="logs\GuidePortal.svclog"/>
+    </listeners>
+    </source>
+  </sources>
+  </system.diagnostics>-->
+  <system.web>
+ <customErrors mode="Off"/>
+    <httpRuntime maxQueryStringLength="4000" maxRequestLength="1048576" encoderType="Portal.Security.AntiXssEncoder, Portal" />
+    <globalization culture="en-US" uiCulture="en-US" />
+    <compilation debug="true" targetFramework="4.5">
+      <assemblies>
+        <add assembly="System.Web.Abstractions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Routing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+        <add assembly="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
+      </assemblies>
+    </compilation>
+    <authentication mode="Forms">
+      <forms loginUrl="~/Account/LogOn" timeout="2880" defaultUrl="~/" />
+    </authentication>
+    <authorization>
+      <deny users="?" />
+    </authorization>
+    <membership defaultProvider="Guide">
+      <providers>
+        <add name="Guide" type="Mobideo.Guide.Services.Client.GuideUMMembershipProvider, Mobideo.Guide.Services.Client" />
+        <add name="GuideOldAuthentication" type="Mobideo.Guide.Services.Client.OldGuideUMMembershipProvider, Mobideo.Guide.Services.Client" />
+      </providers>
+    </membership>
+    <roleManager enabled="true" defaultProvider="Guide">
+      <providers>
+        <add name="Guide" type="Mobideo.Guide.Services.Client.GuideUMRoleProvider, Mobideo.Guide.Services.Client" />
+      </providers>
+    </roleManager>
+    <sessionState timeout="60" />
+    <pages controlRenderingCompatibilityVersion="4.0">
+      <namespaces>
+        <add namespace="Mobideo" />
+        <add namespace="Mobideo.Presentation.Resources" />
+        <add namespace="Mobideo.Presentation.Web.Controls" />
+        <add namespace="Mobideo.Presentation.Models" />
+        <add namespace="Mobideo.Presentation.Resources" />
+        <add namespace="Mobideo.Guide.Portal" />
+        <add namespace="Mobideo.Guide.Portal.Models" />
+        <add namespace="Portal.Utilities" />
+        <add namespace="Mobideo.Presentation.Mvc.Utilities" />
+        <add namespace="System.Web.Helpers" />
+        <add namespace="System.Web.Mvc" />
+        <add namespace="System.Web.Mvc.Ajax" />
+        <add namespace="System.Web.Mvc.Html" />
+        <add namespace="System.Web.Routing" />
+        <add namespace="System.Web.WebPages" />
+        <add namespace="MvcSiteMapProvider.Web.Html" />
+      </namespaces>
+    </pages>
+    <siteMap defaultProvider="MvcSiteMapProvider" enabled="true">
+      <providers>
+        <clear />
+        <add name="MvcSiteMapProvider" type="Mobideo.Presentation.Mvc.MetadataBasedMvcSiteMapProvider, Mobideo.Presentation.Mvc" siteMapFile="~/Static/SiteMap/Default.sitemap" securityTrimmingEnabled="true" cacheDuration="5" enableLocalization="true" scanAssembliesForSiteMapNodes="true" includeAssembliesForScan="Portal" excludeAssembliesForScan="" attributesToIgnore="visibility" nodeKeyGenerator="MvcSiteMapProvider.DefaultNodeKeyGenerator, MvcSiteMapProvider" controllerTypeResolver="MvcSiteMapProvider.DefaultControllerTypeResolver, MvcSiteMapProvider" actionMethodParameterResolver="MvcSiteMapProvider.DefaultActionMethodParameterResolver, MvcSiteMapProvider" aclModule="MvcSiteMapProvider.DefaultAclModule, MvcSiteMapProvider" siteMapNodeUrlResolver="MvcSiteMapProvider.DefaultSiteMapNodeUrlResolver, MvcSiteMapProvider" siteMapNodeVisibilityProvider="MvcSiteMapProvider.FilteredSiteMapNodeVisibilityProvider, MvcSiteMapProvider" />
+      </providers>
+    </siteMap>
+  </system.web>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <modules runAllManagedModulesForAllRequests="true" />
+  </system.webServer>
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding>
+          <readerQuotas maxDepth="32" maxStringContentLength="100000" maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+        </binding>
+        <binding name="unsecure" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647">
+          <readerQuotas maxDepth="32" maxStringContentLength="100000" maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+          <security mode="Transport" />
+        </binding>
+      </basicHttpBinding>
+      <wsHttpBinding>
+        <binding name="NewBinding" closeTimeout="00:03:00" openTimeout="00:03:00" receiveTimeout="00:03:00" sendTimeout="00:03:00" bypassProxyOnLocal="false" transactionFlow="false" hostNameComparisonMode="StrongWildcard" maxBufferPoolSize="52428800" maxReceivedMessageSize="655360000" messageEncoding="Text" textEncoding="utf-8" useDefaultWebProxy="true" allowCookies="false">
+          <readerQuotas maxDepth="32" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+          <security mode="TransportWithMessageCredential">
+            <message clientCredentialType="UserName" />
+          </security>
+        </binding>
+        <binding name="unsecure" closeTimeout="00:03:00" openTimeout="00:03:00" receiveTimeout="00:03:00" sendTimeout="00:03:00" bypassProxyOnLocal="false" transactionFlow="false" hostNameComparisonMode="StrongWildcard" maxBufferPoolSize="52428800" maxReceivedMessageSize="655360000" messageEncoding="Text" textEncoding="utf-8" useDefaultWebProxy="true" allowCookies="false">
+          <readerQuotas maxDepth="32" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+          <security mode="Transport">
+            <message clientCredentialType="UserName" />
+          </security>
+        </binding>
+      </wsHttpBinding>
+    </bindings>
+    <client>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/Api/Import.svc"
+        binding="wsHttpBinding" bindingConfiguration="NewBinding" contract="Mobideo.Guide.ServicesApi.ImportExport.IImportManager"
+        name="Mobideo.Guide.ServicesApi.ImportExport.IImportManager">
+        <identity>
+          <dns value="MobideoGuideServicesCert" />
+        </identity>
+      </endpoint>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/Management/ReportingService.svc"
+        binding="wsHttpBinding" bindingConfiguration="NewBinding" contract="Mobideo.Guide.Reporting.IReportingService"
+        name="Mobideo.Guide.Reporting.IReportingService">
+        <identity>
+          <dns value="MobideoGuideServicesCert" />
+        </identity>
+      </endpoint>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/UserManagement/AuthenticationService.svc"
+        binding="wsHttpBinding" bindingConfiguration="NewBinding" contract="Mobideo.Guide.Services.Contracts.Administration.UserManagement.IAuthenticationService"
+        name="Mobideo.Guide.Services.Contracts.Administration.UserManagement.IAuthenticationService">
+        <identity>
+          <dns value="MobideoGuideServicesCert" />
+        </identity>
+      </endpoint>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/Api/BatchImport.svc"
+        binding="wsHttpBinding" bindingConfiguration="NewBinding" contract="Mobideo.Guide.ServicesApi.ImportExport.IBatchImportManager"
+        name="Mobideo.Guide.ServicesApi.ImportExport.IBatchImportManager">
+        <identity>
+          <dns value="MobideoGuideServicesCert" />
+        </identity>
+      </endpoint>
+    </client>
+  </system.serviceModel>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-2.0.0.0" newVersion="4.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+  <location path="Controllers/AccountController.cs">
+    <system.web>
+      <authorization>
+        <allow users="?" />
+      </authorization>
+    </system.web>
+  </location>
+</configuration>
+<!--ProjectGuid: 9F8C4532-A323-458D-A5EF-067CE3589A9A-->

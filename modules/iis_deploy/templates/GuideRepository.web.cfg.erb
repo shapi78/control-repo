@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="fileRepository" type="Mobideo.Guide.Services.Common.Configuration.FileRepositoryConfigurationSection, Mobideo.Guide.Services.Common" />
+    <!--<section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />-->
+  </configSections>
+  <fileRepository>
+    <repositories>
+      <add name="AppFiles" />
+      <add name="Attachment" />
+      <add name="Archive" />
+      <add name="Templates" />
+      <add name="Versions" />
+      <add name="Content" />
+      <add name="Temp" />
+      <add name="Reports" />
+      <add name="Configuration" />
+      <add name="Customer" />
+    </repositories>
+  </fileRepository>
+  <appSettings>
+    <add key="UseNewAuthentication" value="false" />
+    <add key="ServiceAddress" value="https://<%=$serviceAddress%>"/>
+    <add key="ServicesRootPath" value="GuideServices" />
+    <add key="ConfigVersion" value="1.01" />
+    <add key="RepositoryType" value="Guide" />
+    <add key="AWSProfileName" />
+  </appSettings>
+  <!--
+    For a description of web.config changes see http://go.microsoft.com/fwlink/?LinkId=235367.
+
+    The following attributes can be set on the <httpRuntime> tag.
+      <system.Web>
+        <httpRuntime targetFramework="4.6.1" />
+      </system.Web>
+  -->
+  <system.web>
+    <webServices>
+      <protocols>
+        <add name="HttpGet"/>
+        <add name="HttpPost"/>
+      </protocols>
+    </webServices>
+    <httpModules>
+      <add name="BasicAuthHttpModule" type="WebApi.Authentication.BasicAuthenticationModule" />
+    </httpModules>
+    <compilation debug="true" targetFramework="4.6.1" />
+    <httpRuntime targetFramework="4.5" maxRequestLength="40048576" requestPathInvalidCharacters="&lt;,&gt;,%,&amp;,:,\,?" />
+    <authentication mode="None" />
+    <pages validateRequest="false">
+      <namespaces>
+        <add namespace="System.Web.Helpers" />
+        <add namespace="System.Web.Mvc" />
+        <add namespace="System.Web.Mvc.Ajax" />
+        <add namespace="System.Web.Mvc.Html" />
+        <add namespace="System.Web.Optimization" />
+        <add namespace="System.Web.Routing" />
+        <add namespace="System.Web.WebPages" />
+      </namespaces>
+    </pages>
+    <membership defaultProvider="Guide">
+      <providers>
+        <add name="Guide" type="Mobideo.Guide.Services.Client.GuideUMMembershipProvider, Mobideo.Guide.Services.Client" />
+        <add name="GuideOldAuthentication" type="Mobideo.Guide.Services.Client.OldGuideUMMembershipProvider, Mobideo.Guide.Services.Client" />
+      </providers>
+    </membership>
+    <roleManager enabled="true" defaultProvider="Guide">
+      <providers>
+        <add name="Guide" type="Mobideo.Guide.Services.Client.GuideUMRoleProvider, Mobideo.Guide.Services.Client" />
+      </providers>
+    </roleManager>
+    <sessionState timeout="60" />
+  </system.web>
+  <system.webServer>
+    <security>
+      <requestFiltering>
+        <requestLimits maxAllowedContentLength="50000000" />
+      </requestFiltering>
+    </security>
+    <validation validateIntegratedModeConfiguration="false" />
+    <handlers>    
+      <add name="StaticHandler" path="Css/*" verb="GET" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+      <add name="StaticHandler2" path="Images/*" verb="GET" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+    <remove name="ExtensionlessUrlHandler-Integrated-4.0" /><remove name="OPTIONSVerbHandler" /><remove name="TRACEVerbHandler" /><add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" /></handlers>
+    <modules runAllManagedModulesForAllRequests="true">
+      <add name="BasicAuthHttpModule" type="WebApi.Authentication.BasicAuthenticationModule" />
+    </modules>
+  </system.webServer>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-2.0.0.0" newVersion="2.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-2.0.0.0" newVersion="2.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="EntityFramework" publicKeyToken="b77a5c561934e089" />
+        <bindingRedirect oldVersion="1.0.0.0-5.0.0.0" newVersion="5.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-1.3.0.0" newVersion="1.3.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Data.OData" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.6.3.0" newVersion="5.6.3.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Data.Edm" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.6.3.0" newVersion="5.6.3.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Spatial" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.6.3.0" newVersion="5.6.3.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Http" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Net.Http.Formatting" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+  <!--<system.diagnostics>
+        <sources>
+            <source name="System.ServiceModel" switchValue="Information, ActivityTracing" propagateActivity="true">
+                <listeners>
+                    <add name="xml" type="System.Diagnostics.XmlWriterTraceListener" initializeData="logs\WebApi.svclog"/>
+                </listeners>
+            </source>
+        </sources>
+    </system.diagnostics>-->
+  <system.serviceModel>
+    <behaviors>
+      <serviceBehaviors>
+        <behavior>
+          <!-- To avoid disclosing metadata information, set the value below to false before deployment -->
+          <serviceMetadata httpGetEnabled="true" />
+          <!-- To receive exception details in faults for debugging purposes, set the value below to true.  Set to false before deployment to avoid disclosing exception information -->
+          <serviceDebug includeExceptionDetailInFaults="false" />
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <bindings>
+      <basicHttpBinding>
+        <binding>
+          <readerQuotas maxDepth="32" maxStringContentLength="100000" maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+        </binding>
+        <binding name="unsecure" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647">
+          <readerQuotas maxDepth="32" maxStringContentLength="100000" maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+          <security mode="Transport" />
+        </binding>
+      </basicHttpBinding>
+      <wsHttpBinding>
+        <binding name="NewBinding" closeTimeout="00:05:00" openTimeout="00:05:00" receiveTimeout="00:05:00" sendTimeout="00:05:00" bypassProxyOnLocal="false" transactionFlow="false" hostNameComparisonMode="StrongWildcard" maxBufferPoolSize="52428800" maxReceivedMessageSize="655360000" messageEncoding="Text" textEncoding="utf-8" useDefaultWebProxy="true" allowCookies="false">
+          <readerQuotas maxDepth="32" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="4096" maxNameTableCharCount="16384" />
+          <security mode="TransportWithMessageCredential">
+                        <message clientCredentialType="UserName"/>
+          </security>
+        </binding>
+      </wsHttpBinding>
+    </bindings>
+    <client>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/UserManagement/AuthenticationService.svc"
+        binding="wsHttpBinding" bindingConfiguration="NewBinding" contract="Mobideo.Guide.Services.Contracts.Administration.UserManagement.IAuthenticationService"
+        name="Mobideo.Guide.Services.Contracts.Administration.UserManagement.IAuthenticationService">
+        <identity>
+          <dns value="MobideoGuideServicesCert" />
+        </identity>
+      </endpoint>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/Management/ClientReportingService.svc"
+        binding="wsHttpBinding" bindingConfiguration="NewBinding" contract="Mobideo.Guide.Reporting.IClientReportingService"
+        name="Mobideo.Guide.Reporting.IClientReportingService">
+        <identity>
+          <dns value="MobideoGuideServicesCert" />
+        </identity>
+      </endpoint>
+      <endpoint address="https://<%=$endpointAddress%>/GuideServices/Security/AuthenticationManager.svc"
+        binding="wsHttpBinding" contract="Mobideo.Guide.Identity.IAuthenticationManager" />
+    </client>
+  </system.serviceModel>
+</configuration>
