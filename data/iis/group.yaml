@@ -1,1 +1,8 @@
-111
+|-
+  environment:
+  - customer: HESS
+    project: training
+    environmentName: localhost
+    environmentType: QA
+    serverIP: http://127.0.0.1
+    serverName: localhost
