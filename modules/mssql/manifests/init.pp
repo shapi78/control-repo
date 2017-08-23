@@ -50,7 +50,7 @@ define mssql::restore (
 	){
 	$res_facts = $facts["restore_${database}"]
 	if $res_facts and
-		$res_facts["version"] == $version && $res_facts["database"] == $database {
+		$res_facts["version"] == $version and $res_facts["database"] == $database {
 		notify {"${database} already restored": }
 
 	} else {
