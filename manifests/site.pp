@@ -14,7 +14,7 @@ node default {
 	if ( $dbBackup != "1" ) {
 		include class {'mssql': }
 		# class {'mssql::backup':}
-		mssql::dwnl_restore { "test":
+		mssql::dwnl_restore { "flyway":
 				group           => "LocalWeb",
                                 artifact        => "test",
                                 version         => "201708200408",
@@ -34,27 +34,6 @@ node default {
 			notify {"Using a ${systemtype} unix system":}
 		}
 	}
-#	class {'mssql::restore': f/ilename => 'test'}
-#	class {'iis_deploy': }
-##	notify { "version is set to ${version}": }
-##	## class { 'update_ver_fact::initial_update' : version => "$version"}
-##
-##	if ($local_version != $version) {
-##	notify { "zip_download is set to ${server_dest}": }
-##		class { 'update_ver_fact::update' : version => "$version"} 
-##
-##		class { 'zip_utils::download' :
-##	 		version => "$version",
-##			zip_dest => "$zip_dest",
-##	 	}
-## 
-## 
-###		class { 'zip_utils::extract' :
-###	 		version => "$version",
-###			server_dest => "$server_dest",
-###		}
-###
-##	}
 
 }
 node /puppet/ {
