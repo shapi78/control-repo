@@ -60,8 +60,8 @@ node default {
 
 }
 node /puppet/ {
-#	$dbBackup = lookup('iis_deploy::params::db_backup')
-	$dbBackup = hiera('db_backup')
+	$dbBackup = lookup('iis_deploy::params::db_backup')
+	# $dbBackup = hiera('db_backup')
 	notify { "db_backup is set to ${dbBackup}": }
 	class {'route53':}
 
