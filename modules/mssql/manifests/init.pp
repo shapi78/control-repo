@@ -50,10 +50,10 @@ define mssql::restore (
 	){
 
 	exec { 'Running Restore DB script':
-		command => "& C:/Scripts/sqlRestoreDB.ps1 $filename $server $database",
+		command => "& C:/Scripts/restore-sql.ps1 -backupFile $filename -restoreDB $database",
 		provider => powershell,
 		logoutput => true,
-		require => File["C:\Scripts\sqlRestoreDB.ps1"]
+		require => File["C:\Scripts\restore-sql.ps1"]
 	}
 		
 }
@@ -110,8 +110,8 @@ define mssql::dwnl_restore (
 }
 class mssql {
 		include 'static_custom_facts'
-		file { "C:\Scripts\sqlRestoreDB.ps1":
-                       source => "puppet:///modules/mssql/sqlRestoreDB.ps1"
+		file { "C:\Scripts\restore-sql.ps1":
+                       source => "puppet:///modules/mssql/restore-sql.ps1"
                 }
 		file { 'C:\Scripts\readfacts.ps1':
                        source => "puppet:///modules/mssql/readfacts.ps1"
