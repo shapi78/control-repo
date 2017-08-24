@@ -12,8 +12,8 @@ class automation  inherits automation::params {
 	case $::operatingsystem{
 		'windows': {
 			include '::archive'
- 			$workdir = hiera("automation::WorkDirectory") 
-			$unzip_dir=lookup("automation::UnZipFolder")
+ 			$workdir = hiera("workdir")
+			$unzip_dir=lookup("params.unzip_folder")
 			file  {"${workdir}": 
                                 ensure => directory,
                                 }
