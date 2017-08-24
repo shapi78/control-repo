@@ -27,7 +27,7 @@ Function Compress-Zip ([string]$fileToZip) # Full path fileName
 	Add-Type -assembly 'System.IO.Compression'
 	Add-Type -assembly 'System.IO.Compression.FileSystem'
 	[string]$folder = (Get-Item $fileToZip ).DirectoryName
-	[string]$zipFile = (Get-Item $fileToZip).BaseName + ".zip"
+	[string]$zipFile = $dbname + ".zip"
 	$Global:zipFileName =  Join-Path $folder $zipFile
 	Write-Host "zipFileName $zipFileName"
 	[System.IO.Compression.ZipArchive]$ZipFile = [System.IO.Compression.ZipFile]::Open($zipFileName, ([System.IO.Compression.ZipArchiveMode]::Update))
