@@ -51,3 +51,8 @@ sites:
     siteAddress: "amirtest.mpcmobideo.com"
     version: 2.4
     ipAddress: "192.168.12.91"
+sql_db:
+  db_backup: false
+  database: "test"
+  version: 1
+
