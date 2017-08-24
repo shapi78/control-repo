@@ -42,7 +42,7 @@ define automation::nexus::upload (
 		command => "& C:/Scripts/NexusUpload.ps1 -filename $filename -group $group -version $version -artifact $artifact",
 		provider => powershell,
 		logoutput => true,
-		require => File['C:\Scripts\NexusUpload.ps1'],
+		require => File["C:/Scripts/NexusUpload.ps1"],
 	}
 		
 
@@ -55,7 +55,7 @@ class automation::nexus{
 	file { "C:/Scripts/DownloadNexus.ps1":
                source => "puppet:///modules/automation/DownloadNexus.ps1"
                         }
-	file { 'C:\Scripts\NexusUpload.ps1':
+	file { "C:/Scripts/NexusUpload.ps1":
                source => "puppet:///modules/automation/NexusUpload.ps1"
                         }
 }
