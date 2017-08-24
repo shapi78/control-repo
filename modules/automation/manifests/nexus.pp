@@ -36,13 +36,14 @@ define automation::nexus::upload (
 	$artifact	= $title,
 	) {
 
+	include automation::nexus
 	notify {"Uploading file ${filename}, versioned $version, groupid ${group} to nexus $nexusHost":}
 
 	exec { "Uploading file ${filename} to ${nexusHost} ":
 		command => "& C:/Scripts/NexusUpload.ps1 -filename $filename -group $group -version $version -artifact $artifact",
 		provider => powershell,
 		logoutput => true,
-		#require => File["C:/Scripts/NexusUpload.ps1"],
+		require => File["C:/Scripts/NexusUpload.ps1"],
 		## Need to move all files to hiera
 	}
 		
