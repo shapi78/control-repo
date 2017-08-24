@@ -18,10 +18,11 @@ Function Read-Facter {
 	Write-Host "$BackupFilevalue $factVer"
 }
 
-if ($filename.ToLower().StartsWith("backup_") -And ($version  == "1")) {
+if ($filename.ToLower().StartsWith("backup_") -And ($version.ToLower() -like "latest*")) {
 	Read-Facter
 	$filename=$BackupFilevalue
 	$version=$factVer
+	Write-Host "version set using facter"
 }
 
 Write-Host "Setting file source to $filename, version: $version"
