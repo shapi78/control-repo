@@ -142,10 +142,10 @@ define mssql::database (
 	){
 	case $action {
 		"backup": {
-			notify {"${database} backup": }
+			notify {"DB ${database} initiate backup": }
 			}
 		"restore": {
-			notify {"${database} restore": }
+			notify {"DB ${database} initiate restore": }
 			}
 	}
 }
