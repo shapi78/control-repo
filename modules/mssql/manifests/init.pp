@@ -48,8 +48,8 @@ define mssql::backup (
 	$folder="${automation::workdir}",
 	$version,
 	){
-	exec { "Running Backup ${database}  script":
-		command => "& C:/Scripts/sqlbackup.ps1 $folder $server $database",
+	exec { "Running Backup ${database} to folder ${folder}":
+		command => "& C:/Scripts/sqlbackup.ps1 -folder $folder -dbname $database",
 		provider => powershell,
 		logoutput => true,
 		require => File["C:/Scripts/sqlbackup.ps1"],
