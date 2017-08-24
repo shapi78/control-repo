@@ -23,6 +23,18 @@ appPools:
     appPool: "GuideServices"
     username: "%{hiera('appPool::default::username')}"
     userpass: "%{hiera('appPool::default::userpass')}"
+params:
+  workdir: "C:/Drop"
+  unzip_folder: "%{hiera('params.workdir')}/Zip"
+  script_folder: "C:/Scripts"
+  web:
+    webfolder: "C:/Sites"
+    serviceAddress: 'server2012.mobideo.local'
+    guideRepositoryAddress: 'server2012.mobideo.local'
+    endpointAddress: 'server2012.mobideo.local'
+    appPool:
+      username: "MOIDEOEX\\guideuser"
+      userpass: "Guide4User"
 appPool::default::username: "MOIDEOEX\\guideuser"
 appPool::default::userpass: "Guide4User"
 automation::downloadnexus::group: "hess"
@@ -30,14 +42,16 @@ automation::downloadnexus::version: 2.4
 automation::downloadnexus::repo: "portal"
 automation::downloadnexus::nexusHost: "nexus3"
 automation::WorkDirectory: "C:/Drop"
-automation::UnZipFolder: "%{hiera('automation::WorkDirectory')}/Zip"
+automation::UnZipFolder: "%{hiera('params.workdir')}/Zip"
 automation::ScriptFolder: "C:/Scripts"
 iis_deploy::params::webfolder: "C:/Sites"
 iis_deploy::params::serviceAddress: 'server2012.mobideo.local'
 iis_deploy::params::guideRepositoryAddress: 'server2012.mobideo.local'
 iis_deploy::params::endpointAddress: 'server2012.mobideo.local'
-iis_deploy::params::db_backup: "0"
-
+nexus:
+  host: "nexus3"
+  url: "http://nexus3"
+  
 sites:
   mobideosite:
     siteAddress: "mobideosite.mpcmobideo.com"
@@ -56,4 +70,8 @@ sql_db:
   database: "test"
   version: 1
   restore: true
+  test:
+    action: "backup"
+    version: 2
+    
 

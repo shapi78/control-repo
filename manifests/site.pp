@@ -5,7 +5,7 @@ node default {
 	$server_dest = $automation::params::server_dest
 	$zip_dest = $automation::params::zip_dest
 	$folders = $automation::params::folders
-	$dbBackup = lookup('sql_db.db_backup')
+	$dbBackup = lookup('sql_db.action')
 	notify { "db_backup is set to ${dbBackup}": }
 	
 	#class {'git':}
@@ -13,7 +13,9 @@ node default {
 
 	if ( $dbBackup ) {
 		include class {'mssql': }
-		class {'mssql::backup':}
+		mssql::backup { "test":
+				 version => 20,
+				}
 		mssql::dwnl_restore { "shapi":
 				group           => "LocalWeb",
                                 artifact        => "test",
