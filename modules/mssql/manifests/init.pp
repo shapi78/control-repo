@@ -81,13 +81,13 @@ define mssql::dwnl_restore (
 
 		$artifact_file = "$automation::workdir/${artifact}-${version}.zip"
 		$backup_file = "${automation::unzip_dir}/${artifact}_${version}.bak"
-		archive::nexus {"${artifact_file}":
-			url => "http://nexus3",
-			gav => "${group}:${artifact}:${version}",
-			repository => "iis-repo",
-			packaging  => 'zip',
-			extract    => true,
-		}
+##		archive::nexus {"${artifact_file}":
+##			url => "http://nexus3",
+##			gav => "${group}:${artifact}:${version}",
+##			repository => "iis-repo",
+##			packaging  => 'zip',
+##			extract    => true,
+##		}
 		automation::nexus::download{"${artifact}":
                         		group           => $group,
                         		version         => $version,
