@@ -18,7 +18,7 @@ Function Read-Facter {
 	Write-Host "$BackupFilevalue $factVer"
 }
 
-if ($filename.ToLower().StartsWith("backup_") -And ($verion  == "1")) {
+if ($filename.ToLower().StartsWith("backup_") -And ($version  == "1")) {
 	Read-Facter
 	$filename=$BackupFilevalue
 	$version=$factVer
