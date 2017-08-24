@@ -5,7 +5,7 @@ node default {
 	$server_dest = $automation::params::server_dest
 	$zip_dest = $automation::params::zip_dest
 	$folders = $automation::params::folders
-	$dbBackup = lookup('iis_deploy::params::db_backup')
+	$dbBackup = lookup('sql_db.db_backup')
 	notify { "db_backup is set to ${dbBackup}": }
 	
 	#class {'git':}
