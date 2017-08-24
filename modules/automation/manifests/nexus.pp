@@ -42,7 +42,8 @@ define automation::nexus::upload (
 		command => "& C:/Scripts/NexusUpload.ps1 -filename $filename -group $group -version $version -artifact $artifact",
 		provider => powershell,
 		logoutput => true,
-		require => File["C:/Scripts/NexusUpload.ps1"],
+		#require => File["C:/Scripts/NexusUpload.ps1"],
+		## Need to move all files to hiera
 	}
 		
 
