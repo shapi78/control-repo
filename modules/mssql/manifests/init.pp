@@ -78,23 +78,29 @@ define mssql::dwnl_restore (
 		if $mssql::sqlserver != true {
 			fail "backup requires SQL"
 		}
-		include automation::nexus
 
 		$artifact_file = "$automation::workdir/${artifact}-${version}.zip"
 		$backup_file = "${automation::unzip_dir}/${artifact}_${version}.bak"
 		archive::nexus {"${artifact_file}":
-			url => 'http://nexus3',
+			url => "http://nexus3",
 			gav => "${group}:${artifact}:${version}",
 			repository => "iis-repo",
 			packaging  => 'zip',
 			extract    => true,
 		}
-##		automation::nexus::download{"${artifact}":
-##                        		group           => $group,
-##                        		version         => $version,
-##                        		repo            => $repo,
-##                }
-##		## realize(Automation::Nexus::Download::Dwnld["${artifact}"])
+		automation::nexus::download{"${artifact}":
+                        		group           => $group,
+                        		version         => $version,
+                        		repo            => $repo,
+                }
+		archive { "${artifact_file}":
+			  ensure          => present,
+			  extract         => true,
+			  extract_path    => "${automation::unzip_dir}",
+			  cleanup         => true,
+			  creates         => "${backup_file}",
+		}
+
 ##		zip_utils::extract {"extracting $artifact":
 ##				full_filename   => $artifact_file,
 ##				dst_folder 	=> "${automation::unzip_dir}"
