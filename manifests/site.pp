@@ -11,9 +11,9 @@ node default {
 	#class {'git':}
 	# class{'automation::git':}
 
-	if ( $dbBackup != "1" ) {
+	if ( $dbBackup ) {
 		include class {'mssql': }
-		# class {'mssql::backup':}
+		class {'mssql::backup':}
 		mssql::dwnl_restore { "shapi":
 				group           => "LocalWeb",
                                 artifact        => "test",

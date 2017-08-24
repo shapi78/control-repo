@@ -52,7 +52,8 @@ sites:
     version: 2.4
     ipAddress: "192.168.12.91"
 sql_db:
-  db_backup: false
+  action: false
   database: "test"
   version: 1
+  restore: true
 

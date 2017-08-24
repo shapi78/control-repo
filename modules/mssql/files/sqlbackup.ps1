@@ -18,7 +18,7 @@
  
 Param(
     [string]$folder,
-    [string]$Server,
+    [string]$Server = "localhost",
     [string]$dbname
     )
 
