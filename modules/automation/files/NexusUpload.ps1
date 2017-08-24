@@ -1,6 +1,6 @@
 Param(
    	[string]$repo = "iis-repo",
-	[string]$version = "1.1",
+	[string]$version = "1",
     [string]$NexusHost = "nexus3",
     [string]$filename,
 	[string]$group,
@@ -18,7 +18,7 @@ Function Read-Facter {
 	Write-Host "$BackupFilevalue $factVer"
 }
 
-if ($filename.ToLower().StartsWith("backup_")) {
+if ($filename.ToLower().StartsWith("backup_") -And ($verion  == "1")) {
 	Read-Facter
 	$filename=$BackupFilevalue
 	$version=$factVer
