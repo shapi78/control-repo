@@ -45,7 +45,8 @@
 #
 define mssql::backup (
 	$database = $title,
-	$folder="${automation::workdir}"
+	$folder="${automation::workdir}",
+	$version,
 	){
 	exec { "Running Backup ${database}  script":
 		command => "& C:/Scripts/sqlbackup.ps1 $folder $server $database",
@@ -55,7 +56,7 @@ define mssql::backup (
 	}-> 
 	automation::nexus::upload { "${database}":
 			filename => "backup_${database}",
-			version => "1",
+			version => "${version}",
 
 	}
 
@@ -143,6 +144,9 @@ define mssql::database (
 	case $action {
 		"backup": {
 			notify {"DB ${database} initiate backup": }
+			mssql::backup {"${database}":
+				version => $version, }
+				
 			}
 		"restore": {
 			notify {"DB ${database} initiate restore": }
