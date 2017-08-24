@@ -135,6 +135,22 @@ define mssql::dwnl_restore (
 			
 
 }
+define mssql::database (
+	$database,
+	$action = $title,
+	$version
+	){
+	case $action {
+		"backup": {
+			notify {"${database} backup": }
+			}
+		"restore": {
+			notify {"${database} restore": }
+			}
+	}
+}
+			
+				
 class mssql {
 		include 'static_custom_facts'
 		file { "C:/Scripts/sqlbackup.ps1":

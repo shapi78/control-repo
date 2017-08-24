@@ -1,2 +1,8 @@
-
-iis_deploy::params::db_backup: "91"
+params:
+  sql_action: true
+sql_db:
+  test:
+    database: "test"
+    version: 2
+    action: "backup"
+    

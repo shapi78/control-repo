@@ -24,6 +24,7 @@ appPools:
     username: "%{hiera('appPool::default::username')}"
     userpass: "%{hiera('appPool::default::userpass')}"
 params:
+  sql_action: false
   workdir: "C:/Drop"
   unzip_folder: "%{hiera('workdir')}/Zip"
   script_folder: "C:/Scripts"
@@ -66,13 +67,10 @@ sites:
     siteAddress: "amirtest.mpcmobideo.com"
     version: 2.4
     ipAddress: "192.168.12.91"
-sql_db:
-  action: false
-  database: "test"
-  version: 1
-  restore: true
-  test:
-    action: "backup"
-    version: 2
-    
 
+sql_db:
+  test:
+    database: "test"
+    version: 2
+    action: "backup"
+    
