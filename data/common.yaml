@@ -1,5 +1,6 @@
 ---
 
+workdir: "C:/Drop"
 artifacts:
     GuidePortal:
       artifact: "GuidePortal"
@@ -35,7 +36,6 @@ params:
     appPool:
       username: "MOIDEOEX\\guideuser"
       userpass: "Guide4User"
-workdir: "C:/Drop"
 appPool::default::username: "MOIDEOEX\\guideuser"
 appPool::default::userpass: "Guide4User"
 automation::downloadnexus::group: "hess"
