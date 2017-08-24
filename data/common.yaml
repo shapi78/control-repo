@@ -1,6 +1,7 @@
 ---
 
 workdir: "C:/Drop"
+unzip_folder: "%{hiera('workdir')}/Zip"
 artifacts:
     GuidePortal:
       artifact: "GuidePortal"
@@ -26,7 +27,6 @@ appPools:
     userpass: "%{hiera('appPool::default::userpass')}"
 params:
   sql_action: false
-  unzip_folder: "%{hiera('workdir')}/Zip"
   script_folder: "C:/Scripts"
   web:
     webfolder: "C:/Sites"

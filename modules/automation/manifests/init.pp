@@ -13,7 +13,7 @@ class automation  inherits automation::params {
 		'windows': {
 			include '::archive'
  			$workdir = hiera("workdir")
-			$unzip_dir=lookup("params.unzip_folder")
+			$unzip_dir= hiera("unzip_folder")
 			file  {"${workdir}": 
                                 ensure => directory,
                                 }
