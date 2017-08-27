@@ -49,16 +49,23 @@ define mssql::backup (
 	$version,
 	){
 	$backup_file="${folder}/${database}.zip"
-	exec { "Running Backup ${database} to folder ${folder}":
-		command => "& C:/Scripts/sqlbackup.ps1 -folder $folder -dbname $database -version $version",
-		provider => powershell,
-		logoutput => true,
-		require => File["C:/Scripts/sqlbackup.ps1"],
-	}-> 
-	automation::nexus::upload { "${database}":
+	$back_facts = $facts["backup_${database}"]
+	if $backup_facts and
+		$backup_facts["version"] == $version and $backup_facts["database"] == $database and  
+		$backup_facts["backup_file_name"] == $backup_file {
+			notify {"${database} already  backed-up ": }
+	} else {
+		exec { "Running Backup ${database} to folder ${folder}":
+			command => "& C:/Scripts/sqlbackup.ps1 -folder $folder -dbname $database -version $version",
+			provider => powershell,
+			logoutput => true,
+			require => File["C:/Scripts/sqlbackup.ps1"],
+		}-> 
+		automation::nexus::upload { "${database}":
 			filename => "${backup_file}",
 			version => "${version}",
 
+		}
 	}
 
 
