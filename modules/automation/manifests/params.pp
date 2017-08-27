@@ -5,5 +5,10 @@ $folders = "Content Resources"
 
 $server_dest = 'C:\Drop\Deploy'
 $zip_dest = 'C:\Drop'
+$sql_defaults = {
+	group => "${::hostname}",
+	artifact => "test",
+	
+}
 
 }

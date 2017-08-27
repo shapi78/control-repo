@@ -14,7 +14,7 @@ node default {
 	if ( $dbAction ) {
 		include class {'mssql': }
 		$sqldb_jobs = hiera("sql_db")
-		create_resources(mssql::database, $sqldb_jobs)
+		create_resources(mssql::database, $sqldb_jobs, $automation::params::sql_defaults)
 ##		mssql::backup { "test":
 ##				 version => 20,
 ##				}
