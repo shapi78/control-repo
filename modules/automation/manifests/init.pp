@@ -11,6 +11,7 @@ class automation  inherits automation::params {
 	notify {"Operating system is ${::operatingsystem}": }
 	case $::operatingsystem{
 		'windows': {
+			include chocolatey
 			include '::archive'
  			$workdir = hiera("workdir")
 			$unzip_dir= hiera("unzip_folder")
