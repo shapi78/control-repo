@@ -68,8 +68,10 @@ sites:
     ipAddress: "192.168.12.91"
 
 sql_db:
-  test:
-    database: "test"
+  default:
+    database: "default"
     version: 2
     action: "backup"
-    
+    artifact: "default"
+    group: "localhost"
+        

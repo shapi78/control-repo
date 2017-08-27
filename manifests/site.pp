@@ -14,9 +14,9 @@ node default {
 	if ( $dbAction ) {
 		include class {'mssql': }
 		$sqldb_jobs = hiera("sql_db")
-		$create_defaults = { artifact => "test" }
+		$create_defaults = hiera("sql_db.default"
 		notify { "defaults are  $create_defaults": }
-		create_resources(mssql::database, $sqldb_jobs, $create_defaults)
+#		create_resources(mssql::database, $sqldb_jobs, $create_defaults)
 ##		mssql::backup { "test":
 ##				 version => 20,
 ##				}
