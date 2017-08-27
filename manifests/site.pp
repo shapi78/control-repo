@@ -5,13 +5,13 @@ node default {
 	$server_dest = $automation::params::server_dest
 	$zip_dest = $automation::params::zip_dest
 	$folders = $automation::params::folders
-	$dbBackup = lookup('params.sql_action')
+	$dbAction = lookup('params.sql_action')
 	notify { "db_backup is set to ${dbBackup}": }
 	
 	#class {'git':}
 	# class{'automation::git':}
 
-	if ( $dbBackup ) {
+	if ( $dbAction ) {
 		include class {'mssql': }
 		$sqldb_jobs = hiera("sql_db")
 		create_resources(mssql::database, $sqldb_jobs)
