@@ -48,6 +48,7 @@ define mssql::backup (
 	$folder="${automation::workdir}",
 	$version,
 	){
+	$backup_file="${folder}/${database}.zip"
 	exec { "Running Backup ${database} to folder ${folder}":
 		command => "& C:/Scripts/sqlbackup.ps1 -folder $folder -dbname $database",
 		provider => powershell,
@@ -55,7 +56,7 @@ define mssql::backup (
 		require => File["C:/Scripts/sqlbackup.ps1"],
 	}-> 
 	automation::nexus::upload { "${database}":
-			filename => "backup_${database}",
+			filename => "${backup_file}",
 			version => "${version}",
 
 	}

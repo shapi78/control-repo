@@ -11,7 +11,7 @@ define automation::nexus::download (
 	$fact = $facts["artifact_${artifact}"]
 	if $facts{
 		if $fact["repo"] == "$repo" and  $fact["version"] == "$version"{
-			notify{"artifact ${artifact} alreadey exist":}
+			notify{"Artifact ${artifact} alreadey exist":}
 			$_downloaded=false
 		}else{
 			notify {"Downloading ${artifact}":}->
@@ -35,7 +35,7 @@ define automation::nexus::upload (
 	$repo		= "iis-repo",
 	$artifact	= $title,
 	) {
-
+	
 	include automation::nexus
 	notify {"Uploading file ${filename}, versioned $version, groupid ${group} to nexus $nexusHost":}
 
