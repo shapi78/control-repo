@@ -49,7 +49,7 @@ define mssql::backup (
 	$version,
 	){
 	$backup_file="${folder}/${database}.zip"
-	$back_facts = $facts["backup_${database}"]
+	$backup_facts = $facts["backup_${database}"]
 	notify {"Fact version ${back_facts['version']} ${back_facts}":}
 	if $backup_facts and
 		$backup_facts["version"] == "${version}" and $backup_facts["db_name"] == "${database}" {
