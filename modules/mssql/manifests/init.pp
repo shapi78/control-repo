@@ -148,7 +148,7 @@ define mssql::database (
 	$database,
 	$action 	= $title,
 	$version,
-	$group		= "${::hostname}",
+	$group,
 	$artifact	= "test",
 	){
 	case $action {
