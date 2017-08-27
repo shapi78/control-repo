@@ -50,7 +50,7 @@ define mssql::backup (
 	){
 	$backup_file="${folder}/${database}.zip"
 	exec { "Running Backup ${database} to folder ${folder}":
-		command => "& C:/Scripts/sqlbackup.ps1 -folder $folder -dbname $database",
+		command => "& C:/Scripts/sqlbackup.ps1 -folder $folder -dbname $database -version $version",
 		provider => powershell,
 		logoutput => true,
 		require => File["C:/Scripts/sqlbackup.ps1"],

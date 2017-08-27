@@ -19,7 +19,9 @@
 Param(
     [string]$folder,
     [string]$Server = "localhost",
-    [string]$dbname
+    [string]$dbname,
+    [string]$version
+
     )
 
 Function Compress-Zip ([string]$fileToZip) # Full path fileName
@@ -44,6 +46,7 @@ Function Update-Facter {
 	$facts['db_name'] = $dbname
 	$facts['folder'] = $folder
 	$facts['timestamp'] = $tStamp
+	$facts['version'] = $version
 	$facts['backup_file_name'] = $fileName
 	$backup_fact[$key] = $facts
 
