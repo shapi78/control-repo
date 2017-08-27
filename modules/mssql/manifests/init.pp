@@ -144,12 +144,12 @@ define mssql::dwnl_restore (
 			
 
 }
-define mssql::database (
+define mssql::db (
 	$database,
 	$action 	= $title,
 	$version,
 	$group,
-	$artifact	= "test",
+	$artifact,
 	){
 	case $action {
 		"backup": {
@@ -160,12 +160,12 @@ define mssql::database (
 			}
 		"restore": {
 			notify {"DB ${database} initiate restore": }
-			mssql::dwnl_restore {"${database}":
-				version 	=> $version, 
-				artifact	=> $artifact,
-				group		=> $group,
-
-				}
+##			mssql::dwnl_restore {"${database}":
+##				version 	=> $version, 
+##				artifact	=> $artifact,
+##				group		=> $group,
+##
+##				}
 			}
 	}
 }

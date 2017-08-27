@@ -2,16 +2,16 @@ params:
   sql_action: true
 sql_db:
   test:
-    database: "test-new"
+    database: "testnew"
     version: 2
     group: "LocalWeb"
-    artifcat: "test"
     action: "restore"
+    artifact: 
     
   flyway:
     database: "flywaynew"
     version: 22
     group: "LocalWeb"
-    artifcat: "test"
     action: "restore"
+    artifact:
     

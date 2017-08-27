@@ -14,9 +14,14 @@ node default {
 	if ( $dbAction ) {
 		include class {'mssql': }
 		$sqldb_jobs = hiera("sql_db")
-		$create_defaults = hiera("sql_db.default"
+		$create_defaults = lookup({
+					'name' => "sql_db.test",
+					'merge' => {
+						'strategy'	=> 'deep',
+						},
+					})
 		notify { "defaults are  $create_defaults": }
-#		create_resources(mssql::database, $sqldb_jobs, $create_defaults)
+		create_resources(mssql::db, $sqldb_jobs, $create_defaults)
 ##		mssql::backup { "test":
 ##				 version => 20,
 ##				}
