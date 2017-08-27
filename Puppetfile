@@ -12,3 +12,4 @@ mod 'puppetlabs-iis', '4.0.0'
 mod 'puppet-archive'
 mod 'puppetlabs-chocolatey', :latest
 mod 'puppetlabs-stdlib', :latest
+mod 'puppetlabs-registry', :latest
