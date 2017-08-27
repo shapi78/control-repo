@@ -50,7 +50,7 @@ define mssql::backup (
 	){
 	$backup_file="${folder}/${database}.zip"
 	$backup_facts = $facts["backup_${database}"]
-	notify {"Fact version ${backup_facts['version']} ${backup_facts}":}
+	## notify {"Fact version ${backup_facts['version']} ${backup_facts}":}
 	if $backup_facts and
 		$backup_facts["version"] == "${version}" and $backup_facts["db_name"] == "${database}" {
 			notify {"${database} already  backed-up ": }
