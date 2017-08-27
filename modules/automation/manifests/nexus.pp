@@ -22,7 +22,7 @@ define automation::nexus::download (
 				require => File["C:/Scripts/DownloadNexus.ps1"],
 			}
 			$_downloaded=true
-		static_custom_facts::fact {"artifact_${artifact}": value => {repo => "${repo}", folder => "${automation::workdir}", name => "${artifact}", group => "${group}", version => "${version}"}}
+		static_custom_facts::fact {"download_${artifact}": value => {repo => "${repo}", folder => "${automation::workdir}", name => "${artifact}", group => "${group}", version => "${version}"}}
 		}
 	}
 }
@@ -37,7 +37,7 @@ define automation::nexus::upload (
 	) {
 	
 	include automation::nexus
-	notify {"Uploading file ${filename}, versioned $version, groupid ${group} to nexus $nexusHost":}
+	notify {"Uploading file ${filename}, artifact: ${artifact} version $version, groupid ${group} to nexus $nexusHost":}
 
 	exec { "Uploading file ${filename} to ${nexusHost} ":
 		command => "& C:/Scripts/NexusUpload.ps1 -filename $filename -group $group -version $version -artifact $artifact",
@@ -46,6 +46,7 @@ define automation::nexus::upload (
 		require => File["C:/Scripts/NexusUpload.ps1"],
 		## Need to move all files to hiera
 	}
+	static_custom_facts::fact {"upload_${artifact}": value => {repo => "${repo}", artifact => "${artifact}", group => "${group}", filename => "${filename}", version => "${version}"}}
 		
 
 }
