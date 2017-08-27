@@ -1,0 +1,17 @@
+params:
+  sql_action: true
+sql_db:
+  test:
+    database: "test-new"
+    version: 2
+    group: "LocalWeb"
+    artifcat: "test"
+    action: "restore"
+    
+  flyway:
+    database: "flywaynew"
+    version: 22
+    group: "LocalWeb"
+    artifcat: "test"
+    action: "restore"
+    
