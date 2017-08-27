@@ -6,3 +6,8 @@ sql_db:
     version: 2
     action: "backup"
     
+  flyway:
+    database: "flyway"
+    version: 22
+    action: "backup"
+    
