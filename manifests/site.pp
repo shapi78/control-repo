@@ -6,7 +6,7 @@ node default {
 	$zip_dest = $automation::params::zip_dest
 	$folders = $automation::params::folders
 	$dbAction = lookup('params.sql_action')
-	notify { "db_backup is set to ${dbBackup}": }
+	notify { "dbAction is set to ${dbAction}": }
 	
 	#class {'git':}
 	# class{'automation::git':}
@@ -24,7 +24,7 @@ node default {
 ##                                version         => "201708200408",
 ##			}
 	} else {
-		notify { "db_backup is set to ${dbBackup}, starting deploy": }
+		notify { "dbAction is set to ${dbAction}, starting deploy": }
 	
 	}
 	case $::operatingsystem {
@@ -41,9 +41,9 @@ node default {
 
 }
 node /puppet/ {
-	$dbBackup = lookup('iis_deploy::params::db_backup')
-	# $dbBackup = hiera('db_backup')
-	notify { "db_backup is set to ${dbBackup}": }
+	$dbAction = lookup('iis_deploy::params::dbAction')
+	# $dbAction = hiera('dbAction')
+	notify { "dbAction is set to ${dbAction}": }
 	class {'route53':}
 
 }
