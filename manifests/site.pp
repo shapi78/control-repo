@@ -15,7 +15,7 @@ node default {
 		include class {'mssql': }
 		$sqldb_jobs = hiera("sql_db")
 		notify { "defaults are  ${automation::params::sql_defaults}": }
-		#create_resources(mssql::database, $sqldb_jobs, $automation::params::sql_defaults)
+		create_resources(mssql::database, $sqldb_jobs, $automation::params::sql_defaults)
 ##		mssql::backup { "test":
 ##				 version => 20,
 ##				}
