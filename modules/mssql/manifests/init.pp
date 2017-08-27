@@ -149,7 +149,7 @@ define mssql::database (
 	$action 	= $title,
 	$version,
 	$group		= "${::hostname}"
-	$artifact 	= $title,
+	$artifact,
 	){
 	case $action {
 		"backup": {
